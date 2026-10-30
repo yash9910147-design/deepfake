@@ -1,0 +1,21 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+
+# Keep trained weights local; GitHub's regular Git file limit is 100 MB.
+*.h5
+*.hdf5
+models/
+
+# Training/evaluation artifacts and local dataset downloads.
+checkpoints/
+results/
+data/
+datasets/
+
+# Legacy notebook contains old multi-model experiments; keep this repo Xception-only.
+xception deep cnn .ipynb
+
+# Local editor settings.
+.vscode/

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Analyze deepfake images locally with an Xception detector."
+    />
+    <title>Deepfake Lens — Local Image Analysis</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Deepfake Lens home">
+          <span class="brand-mark" aria-hidden="true">◈</span>
+          <span>deepfake<span class="brand-light">lens</span></span>
+        </a>
+        <div class="local-badge"><span></span> LOCAL INFERENCE</div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-line"></span> IMAGE AUTHENTICITY LAB</div>
+            <h1>Look closer.<br /><span>See what’s real.</span></h1>
+            <p>
+              Analyze an image with your trained Xception detector.
+              Everything runs locally on your machine.
+            </p>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orb orb-one"></div>
+            <div class="orb orb-two"></div>
+            <div class="scan-frame"><span></span><i></i><b></b><em></em></div>
+            <div class="scan-label">PIXEL ANALYSIS <span>● LIVE</span></div>
+            <div class="scan-coordinates">01 / 04<br />224 × 224</div>
+          </div>
+        </section>
+
+        <section class="workspace">
+          <div class="input-panel panel">
+            <div class="section-heading">
+              <div>
+                <span class="step-number">01</span>
+                <h2>Choose an image</h2>
+              </div>
+              <span class="subtle-label">JPG · PNG · WEBP</span>
+            </div>
+            <label class="dropzone" id="dropzone" for="image-input">
+              <input id="image-input" type="file" accept="image/*" />
+              <div id="upload-empty" class="upload-empty">
+                <span class="upload-icon" aria-hidden="true">↑</span>
+                <strong>Drop an image here</strong>
+                <span>or <span class="browse-link">browse files</span></span>
+                <small>Maximum file size: 15 MB</small>
+              </div>
+              <div id="preview-wrap" class="preview-wrap hidden">
+                <img id="image-preview" alt="Selected image preview" />
+                <span class="change-image">Change image</span>
+              </div>
+            </label>
+
+            <div class="section-heading model-heading">
+              <div>
+                <span class="step-number">02</span>
+                <h2>Xception model</h2>
+              </div>
+              <button id="refresh-models" class="text-button" type="button">Refresh</button>
+            </div>
+            <div id="model-list" class="model-list" aria-live="polite">
+              <div class="loading-models">Checking for trained models…</div>
+            </div>
+            <button id="analyze-button" class="analyze-button" type="button" disabled>
+              <span>Analyze image</span><span class="button-arrow">↗</span>
+            </button>
+            <p class="privacy-note"><span>◆</span> Images are processed locally and are not uploaded to a cloud service.</p>
+          </div>
+
+          <div class="results-panel panel">
+            <div class="section-heading result-heading">
+              <div>
+                <span class="step-number">03</span>
+                <h2>Analysis results</h2>
+              </div>
+              <span id="result-count" class="result-count">WAITING</span>
+            </div>
+            <div id="result-placeholder" class="result-placeholder">
+              <div class="placeholder-graphic" aria-hidden="true">
+                <span class="placeholder-ring ring-a"></span>
+                <span class="placeholder-ring ring-b"></span>
+                <span class="placeholder-diamond">◇</span>
+              </div>
+              <h3>Your results will appear here</h3>
+              <p>Upload an image and run the trained Xception model to get started.</p>
+            </div>
+            <div id="results-content" class="results-content hidden">
+              <div id="summary-message" class="summary-message"></div>
+              <div id="result-cards" class="result-cards"></div>
+            </div>
+            <div id="error-message" class="error-message hidden" role="alert"></div>
+            <p class="calibration-note">
+              Scores are model outputs, not guaranteed calibrated probabilities. This tool is
+              for research and should not be used as the sole basis for decisions.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>DEEPFAKE LENS</span>
+        <span>Local inference · No automatic training</span>
+      </footer>
+    </div>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

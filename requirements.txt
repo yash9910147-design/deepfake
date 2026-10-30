@@ -1,0 +1,13 @@
+# TensorFlow bundles the Keras API used by this project.
+tensorflow>=2.15,<2.19
+tensorflow-metal>=1.2,<2; sys_platform == "darwin" and platform_machine == "arm64"
+kagglehub>=0.3,<1
+numpy>=1.24,<3
+pandas>=2.0,<3
+scikit-learn>=1.3,<2
+matplotlib>=3.7,<4
+Pillow>=10,<12
+h5py>=3.9,<4
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
+python-multipart>=0.0.9,<1
