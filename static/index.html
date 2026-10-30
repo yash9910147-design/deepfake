@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Analyze deepfake images locally with an Xception detector."
+      content="Analyze images with a trained Xception deepfake detector."
     />
-    <title>Deepfake Lens — Local Image Analysis</title>
+    <title>Deepfake Lens — Xception Image Analysis</title>
     <link rel="stylesheet" href="/static/styles.css" />
   </head>
   <body>
@@ -17,7 +17,7 @@
           <span class="brand-mark" aria-hidden="true">◈</span>
           <span>deepfake<span class="brand-light">lens</span></span>
         </a>
-        <div class="local-badge"><span></span> LOCAL INFERENCE</div>
+        <div class="local-badge"><span></span> XCEPTION INFERENCE</div>
       </header>
 
       <main>
@@ -26,8 +26,8 @@
             <div class="eyebrow"><span class="eyebrow-line"></span> IMAGE AUTHENTICITY LAB</div>
             <h1>Look closer.<br /><span>See what’s real.</span></h1>
             <p>
-              Analyze an image with your trained Xception detector.
-              Everything runs locally on your machine.
+              Analyze an image with your trained Xception detector using the
+              configured inference service.
             </p>
           </div>
           <div class="hero-art" aria-hidden="true">
@@ -75,7 +75,7 @@
             <button id="analyze-button" class="analyze-button" type="button" disabled>
               <span>Analyze image</span><span class="button-arrow">↗</span>
             </button>
-            <p class="privacy-note"><span>◆</span> Images are processed locally and are not uploaded to a cloud service.</p>
+            <p class="privacy-note"><span>◆</span> Images are sent to the configured prediction service only after you click Analyze.</p>
           </div>
 
           <div class="results-panel panel">
@@ -110,7 +110,7 @@
 
       <footer>
         <span>DEEPFAKE LENS</span>
-        <span>Local inference · No automatic training</span>
+        <span>Remote inference · No automatic training</span>
       </footer>
     </div>
     <script src="/static/app.js" defer></script>

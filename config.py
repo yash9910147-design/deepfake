@@ -1,8 +1,9 @@
+import os
 from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
-MODEL_DIR = PROJECT_ROOT / "models"
+MODEL_DIR = Path(os.environ.get("MODEL_DIR", str(PROJECT_ROOT / "models"))).expanduser()
 CHECKPOINT_DIR = PROJECT_ROOT / "checkpoints"
 RESULTS_DIR = PROJECT_ROOT / "results"
 

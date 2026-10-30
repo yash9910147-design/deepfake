@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 from io import BytesIO
 from pathlib import Path
 
@@ -9,6 +10,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from PIL import Image, UnidentifiedImageError
 from starlette.concurrency import run_in_threadpool
+from starlette.middleware.cors import CORSMiddleware
 
 from config import MODEL_DIR, MODEL_SPECS
 from predict import predict_image
@@ -19,8 +21,20 @@ MAX_IMAGE_BYTES = 15 * 1024 * 1024
 
 app = FastAPI(
     title="Deepfake Lens",
-    description="Local image inference using the Xception deepfake classifier.",
+    description="Image inference using the Xception deepfake classifier.",
 )
+allowed_origins = [
+    origin.strip()
+    for origin in os.environ.get("CORS_ORIGINS", "").split(",")
+    if origin.strip()
+]
+if allowed_origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=allowed_origins,
+        allow_methods=["GET", "POST"],
+        allow_headers=["Content-Type"],
+    )
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
@@ -32,6 +46,11 @@ def _model_available(model_key: str) -> bool:
 @app.get("/", include_in_schema=False)
 async def index() -> FileResponse:
     return FileResponse(STATIC_DIR / "index.html")
+
+
+@app.get("/health")
+async def health() -> dict[str, str]:
+    return {"status": "ok"}
 
 
 @app.get("/api/models")
@@ -101,4 +120,4 @@ async def predict(
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "8000")))

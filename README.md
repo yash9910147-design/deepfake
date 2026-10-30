@@ -1,8 +1,8 @@
 # Deepfake Lens — Xception
 
-A local image deepfake detector powered by a trained Xception model. The browser
-interface and inference API run on your machine; the app does not train a model
-or upload image contents to a remote service.
+An image deepfake detector powered by a trained Xception model. The browser
+interface and FastAPI inference service can run locally or be deployed
+separately. The app does not train a model during inference.
 
 ## Setup
 
@@ -32,7 +32,7 @@ The supplied project model uses `[0, 1]` pixel scaling and its sigmoid output
 represents the **Real** class; inference converts that value to a Fake score for
 display.
 
-## Run the local web app
+## Run locally
 
 ```bash
 source .venv/bin/activate
@@ -40,7 +40,7 @@ python app.py
 ```
 
 Open <http://127.0.0.1:8000>. Upload an image and select Xception to get a
-prediction. The interface shows whether the local model file is available.
+prediction. The interface shows whether the model file is available.
 
 Alternatively, run the API server with:
 
@@ -53,6 +53,19 @@ python -m uvicorn app:app --host 127.0.0.1 --port 8000
 ```bash
 python predict.py --image /path/to/image.jpg
 ```
+
+## Deployment
+
+The Vercel configuration serves the static frontend from `static/`. A separate
+FastAPI backend is required for predictions; the frontend reports when that
+backend is not connected. The backend must have the trained model file and set
+`MODEL_DIR` to the directory containing it. Set `CORS_ORIGINS` to a
+comma-separated list of trusted frontend origins if the browser calls the API
+directly from another domain.
+
+The HDF5 model is intentionally excluded from Git. Do not add it to the public
+repository to deploy it; provide it to the backend host using that provider's
+private storage or secure file-transfer mechanism.
 
 ## Training and evaluation
 

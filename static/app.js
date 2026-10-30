@@ -76,7 +76,14 @@ async function loadModels() {
   modelList.innerHTML = '<div class="loading-models">Checking for trained models…</div>';
   try {
     const response = await fetch("/api/models");
-    if (!response.ok) throw new Error("Could not check model availability.");
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error(
+          "The Vercel page is deployed, but its prediction backend is not connected yet."
+        );
+      }
+      throw new Error("Could not check model availability.");
+    }
     const data = await response.json();
     modelList.replaceChildren(...data.models.map(createModelOption));
     if (!data.models.some((model) => model.available)) {

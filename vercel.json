@@ -1,0 +1,9 @@
+{
+  "outputDirectory": "static",
+  "rewrites": [
+    {
+      "source": "/static/:path*",
+      "destination": "/:path*"
+    }
+  ]
+}
