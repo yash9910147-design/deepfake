@@ -20,3 +20,5 @@ xception deep cnn .ipynb
 
 # Local editor settings.
 .vscode/
+.vercel
+.env*
